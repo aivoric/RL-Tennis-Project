@@ -1,12 +1,10 @@
 """"
-Project for Udacity Danaodgree in Deep Reinforcement Learning (DRL)
-Code Expanded and Adapted from Code provided by Udacity DRL Team, 2018.
+Code adapted and expanded from the original Udacity code project.
 """
 
 import copy
 import random
 import numpy as np
-
 
 class OUNoise:
     """Ornstein-Uhlenbeck process."""
