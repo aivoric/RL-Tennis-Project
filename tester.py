@@ -43,12 +43,18 @@ class Tester():
             self.env.reset()
             self.agent1.reset()
             self.agent2.reset()
-            episode_scores = np.zeros(self.env.get_num_of_agents())  # each agent will keep track of their own scores
+            episode_scores = np.zeros(self.env.get_num_of_agents()) 
 
             # Get initial state of the unity environment and reshape it
-            states = np.reshape(self.env.states, (1, self.env.get_states_per_agent())) # reshape so we can feed both agents states to each agent
+            states = np.reshape(self.env.states, (1, self.env.get_states_per_agent())) 
         
-            
+            #########################################################################
+            #------------------------------------------------------------------------
+            # Within the episode step through the environment. The following happens:
+            # 1) trained agents obtain their actions based on current state
+            # 2) the environment receives the agents' actions
+            # 3) the environment retuns the next state, rewards, dones
+            # 4) scores are updated
             while True:
                 # Get the first agent actions based on current state, using noise for exploration:
                 actions1 = self.agent1.act(states, add_noise=False)
