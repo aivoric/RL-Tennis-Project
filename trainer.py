@@ -148,7 +148,7 @@ class Trainer():
         # If average score is better than the best score, then update best score and save model weights:
         if average_score > self.best_score: 
             self.best_score = average_score
-            self.save_model()
+            self.save_models()
         
         # Print result of every episode. end="" ensures that result is printed on the same line.
         print('\rEpisode: {} \t Episode score: {:.2f} \t Average Score: {:.2f}'.format(
