@@ -221,6 +221,8 @@ class Trainer():
             'all_scores': self.scores,
             'average_scores': self.average_scores
         }
+        # Define the results save location for the current iteration
+        results_folder = path.join("results", "results_{}".format(self.iteration))
         
         results_save_location = path.join(results_folder, 'scores.pickle'.format())
         
