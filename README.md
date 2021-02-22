@@ -1,9 +1,12 @@
 ## Introduction
 
-This is a deep reinforcement learning project which solves the Tennis unity environment.
+This is a deep reinforcement learning project which solves the Tennis unity environment using the DDPG algorithm.
 
-An example of the tennis environment:
-!["Tennis Example"](https://github.com/aivoric/RL-Tennis-Project/blob/main/images/tennis-example.gif?raw=true)
+Here is a preview of a well trained agent:
+!["Trained Tennis Agent"](https://github.com/aivoric/RL-Tennis-Project/blob/main/images/tennis-example.gif?raw=true)
+
+You can watch a fully trained agent play endlessly here:
+https://youtu.be/7TBdqiHPXRI
 
 Enjoy the read below for more details!
 
@@ -15,7 +18,7 @@ Two agents control rackets to bounce a ball over a net.
 
 Agent receives a reward of:
 - +0.1 whenever it hits a ball over the net.
-- 0.01 whenever it lets a ball hit the ground or hits the ball out of bounds
+- -0.01 whenever it lets a ball hit the ground or hits the ball out of bounds
 
 Hence the goal of each agent is to keep the ball in play.
 

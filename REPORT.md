@@ -13,6 +13,9 @@ The solution model weights can be found in the /results/results_7 folder. File n
 
 The best trained agent can also be found in the same folder /results/results_7 folder but without the **solved_** at the beginning of file names.
 
+A video of the best trained agent can be found below. The best trained agents have learned to play an endless game of tennis!
+https://youtu.be/7TBdqiHPXRI
+
 The console output of the training:
 
 !["Console Output"](https://github.com/aivoric/RL-Tennis-Project/blob/main/images/console-output-example.png?raw=true)
