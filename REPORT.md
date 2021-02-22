@@ -4,7 +4,7 @@
 
 The environment was solved after 758 episodes using the DDPG algorithm for training the agents.
 
-A top score of 0.96 (100 episode average) at about 1000 episodes.
+A top score of 0.96 (100 episode average) was obtained at about 1000 episodes.
 
 The training was done on CPU on a Macbook Pro 2.6 GHz 6-Core Intel Core i7. It took about 2 hours.
 
@@ -29,10 +29,10 @@ The agents were trained using a DDPG algorithm which utilises a Replay buffer.
 The learning process follows:
 * Initialise 2 identical DDPG agents (one for each racket)
 * Initialise a Replay Buffer
-* Initialise a 
+* Initialise Ornstein-Uhlenbeck noise
 * Initialise an environment and get the initial state
 * Begin episode loop for N episodes:
-    - Reset agents and environment
+    - Reset agents (Ornstein-Uhlenbeck noise) and environment
     - Begin episode stepping loop:
         - Pass the state to the agents and get their action
         - Use the action in the environment and step through it
@@ -80,8 +80,8 @@ The learning process follows:
 
 ## Future Improvements
 
-- Experiment with Prioritised Experience Replay. It has been shown to "can reduce the training time and improve the stability of the training process, and is less sensitive to the changes of some hyperparameters such as the size of replay buffer, minibatch and the updating rate of the target network". https://www.semanticscholar.org/paper/A-novel-DDPG-method-with-prioritized-experience-Hou-Liu/027d002d205e49989d734603ff0c2f7cbfa6b6dd
-- Experiment with Sigma decay in the Ornstein-Uhlenbeck process. At first, training was attempted with sigma decay but it didn't work very well, so a static sigma value was used. I think more effort needs to be taken in order to identify how sigma
+- Experiment with Prioritised Experience Replay. It has been shown to "reduce the training time and improve the stability of the training process, and is less sensitive to the changes of some hyperparameters such as the size of replay buffer, minibatch and the updating rate of the target network". https://www.semanticscholar.org/paper/A-novel-DDPG-method-with-prioritized-experience-Hou-Liu/027d002d205e49989d734603ff0c2f7cbfa6b6dd
+- Experiment with Sigma decay in the Ornstein-Uhlenbeck process. At first, training was attempted with sigma decay but it didn't work very well, so a static sigma value was used. I think more effort needs to be taken in order to identify how the Ornstein-Uhlenbeck process works.
 - Improve the networks with Batch normalisation as this can speed up and stabilise training. 
 - Experiment with different network architectures. Initially an architecture of 256 input cells and 128 hidden cells was used. However, this showed poor performance, so it was expanded to 512 input cells and 256 hidden cells. This worked better. However, further experimentation is required.
 - Experiment with different values for TAU. TAU was initially really low (0.005) and training was extremely slow. Once TAU was increased to 0.15 the training became much faster.

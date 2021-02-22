@@ -75,10 +75,10 @@ https://github.com/Unity-Technologies/ml-agents
 ## How to Train a New Agent
 
 1. Follow the instructions above for cloning the repo and installing depedencies.
-2. Open main.py and configure your hyperparameters. Ensure to **train_mode = True**
-3. Start training with **python main.py** command
+2. Open main.py and configure your hyperparameters. Ensure **train_mode = True**
+3. Start training with **python main.py** command in the console after activating the environment
 4. Observe results on the console (see below for sample console results)
-5. Wait for training to finish or interrupt training. 
+5. Wait for training to finish or interrupt training
 6. Trained model weights will be saved in **result/results_i** where i is your experiment id defined in hyperparameters
 7. Scores will be saved also in that folder into a **results.pickle** file
 7. Visualise the scores by opening **Tennis.ipynb** and then adjusting the file location to the results.pickle.
