@@ -2,7 +2,9 @@
 
 ### Results
 
-The environment was solved after 758 episodes. A top score of 0.96 (100 episode average) at about 1000 episodes.
+The environment was solved after 758 episodes using the DDPG algorithm for training the agents.
+
+A top score of 0.96 (100 episode average) at about 1000 episodes.
 
 The training was done on CPU on a Macbook Pro 2.6 GHz 6-Core Intel Core i7. It took about 2 hours.
 
@@ -11,7 +13,7 @@ A graphic summarising the performance:
 
 The solution model weights can be found in the /results/results_7 folder. File names start with **solved_**
 
-The best trained agent can also be found in the same folder /results/results_7 folder but without the **solved_** at the beginning of file names.
+The best trained agent can also be found in the same /results/results_7 folder but without the **solved_** at the beginning of file names.
 
 A video of the best trained agent can be found below. The best trained agents have learned to play an endless game of tennis!
 https://youtu.be/7TBdqiHPXRI
@@ -22,12 +24,40 @@ The console output of the training:
 
 ### Learning Algorithm
 
-Coming soon!
+The agents were trained using a DDPG algorithm which utilises a Replay buffer.
+
+The learning process follows:
+* Initialise 2 identical DDPG agents (one for each racket)
+* Initialise a Replay Buffer
+* Initialise a 
+* Initialise an environment and get the initial state
+* Begin episode loop for N episodes:
+    - Reset agents and environment
+    - Begin episode stepping loop:
+        - Pass the state to the agents and get their action
+        - Use the action in the environment and step through it
+        - Collect next state, rewards, and dones (if episode is finished)
+        - Give the agents the obtained states and rewards information
+        - Agents save information in a replay buffer
+        - Agents train by sampling experiences from the replay buffer
+        - Update scores
+    - Update episode scores
+    - Save models if required
 
 
 ### Model Architecture
 
-Coming soon!
+2 slighly different network architectures are used for the actor and the agent.
+
+#### Actor
+- State size -> 512 hidden cells with ReLU activation function
+- 512 cells -> 256 cells with ReLU activation function
+- 256 cells -> 1 action with Tanh activation function
+
+#### Critic
+- State size -> 512 hidden cells with ReLU activation function
+- 20% dropout probability in the hidden layer of 512 cells
+- 512 cells + Action -> 1 value with ReLU activation function
 
 ### Hyperparameters
 

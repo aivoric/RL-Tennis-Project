@@ -36,21 +36,9 @@ To safely save results separately, increment the value of the ITERATION.
 That will save results in a new folder with the corresponding number,
 i.e. results/results_i 
 """
-hyperparameters_2 = Box({
-    'ITERATION': 7,               # Iteration ID allows to put results into new folders
-    'EPISODES': 5000,             # Number of episode to loop through
-    'SAVE_EVERY': 100,            # How often to save the agent
-    'BUFFER_SIZE': int(5e5),      # Replay buffer size
-    'BATCH_SIZE': 128,            # Training batch size
-    'GAMMA': 0.99,                # Discount factor
-    'TAU': 0.005,                 # Soft update multiplier
-    'LR_ACTOR': 1e-3,             # Learning rate of the actor 
-    'LR_CRITIC': 1e-3,            # Learning rate of the critic
-    'WEIGHT_DECAY': 0             # L2 weight decay
-})
 
 hyperparameters = Box({
-    'ITERATION': 7,               # Iteration ID allows to put results into new folders
+    'ITERATION': 8,               # Iteration ID allows to put results into new folders
     'EPISODES': 5000,             # Number of episode to loop through
     'SAVE_EVERY': 100,            # How often to save the agent
     'BUFFER_SIZE': int(1e5),      # Replay buffer size
@@ -82,6 +70,6 @@ reproduce results.
 'random_seed' is passed to all the classes used in the program:
 Environment, Agent, OUNoise, ReplayBuffer
 """
-train_mode = False
+train_mode = True
 random_seed=0
 main(environment_file_name, hyperparameters, random_seed, train_mode)
