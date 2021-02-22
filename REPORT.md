@@ -7,7 +7,7 @@ The environment was solved after 758 episodes. A top score of 0.96 (100 episode 
 The training was done on CPU on a Macbook Pro 2.6 GHz 6-Core Intel Core i7. It took about 2 hours.
 
 A graphic summarising the performance:
-!["Tennis Scores"](https://github.com/aivoric/RL-Tennis-Project/blob/main/images/console-output-example.png?raw=true)
+!["Tennis Scores"](https://github.com/aivoric/RL-Tennis-Project/blob/main/images/tennis_scores.png?raw=true)
 
 The solution model weights can be found in the /results/results_7 folder. File names start with **solved_**
 
