@@ -19,7 +19,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 class DDPGAgent():
     """Interacts with and learns from the environment."""
     
-    def __init__(self, state_size, action_size, hyperparameters, num_agents, random_seed=0):
+    def __init__(self, state_size, action_size, hyperparameters, num_agents, random_seed):
         """Initialize an Agent object.
         
         Params
@@ -31,6 +31,7 @@ class DDPGAgent():
         self.state_size = state_size
         self.action_size = action_size
         self.num_agents = num_agents
+        self.seed = random.seed(random_seed)
 
         # Actor Network (w/ Target Network)
         self.actor_local = Actor(state_size, action_size, random_seed).to(device)
@@ -43,7 +44,7 @@ class DDPGAgent():
         self.critic_optimizer = optim.Adam(self.critic_local.parameters(), lr=hyperparameters.LR_CRITIC, weight_decay=hyperparameters.WEIGHT_DECAY)
 
         # Noise process for each agent
-        self.noise = OUNoise((num_agents, action_size), random_seed)
+        self.noise = OUNoise((num_agents, action_size), hyperparameters, random_seed)
 
         # Replay memory
         self.memory = ReplayBuffer(action_size, hyperparameters.BUFFER_SIZE, hyperparameters.BATCH_SIZE, random_seed)

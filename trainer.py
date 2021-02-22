@@ -11,17 +11,19 @@ from environment import Environment
 class Trainer():
     """
     Trainer handles the entire training process of the agents.
-    It imports and creates an environment and the necessary agents.
+    It imports and creates an Environment and the necessary Agents.
     It also keeps track of various scores through attributes.
-    It has several important methods:
-    - train() -> steps through the environment and trains the agents
-    - process_scores() -> updates scores, prints them
-    - save_models() -> saves the models' weights
-    - save_scores() -> saves the scores in a pickle
-    - display_final_result() -> displays final results
+
+    Methods
+    ====
+        train(): steps through the environment and trains the agents
+        process_scores(): updates scores, prints them
+        save_models(): saves the models' weights
+        save_scores(): saves the scores in a pickle
+        display_final_result(): displays final results
     """
-    def __init__(self, environment_file_name, hyperparameters):
-        self.env = Environment(file_name=environment_file_name, train_mode=True, no_graphics=True)
+    def __init__(self, environment_file_name, hyperparameters, random_seed=0):
+        self.env = Environment(file_name=environment_file_name, seed=random_seed, train_mode=True, no_graphics=True)
         self.hyperparameters = hyperparameters
         
         #TODO: Finish converting agents into a dynamic list, so that it works in the Soccer environment:
@@ -30,18 +32,21 @@ class Trainer():
             self.agents.append(DDPGAgent(state_size=self.env.get_states_per_agent(),
                                 action_size=self.env.get_action_size(),
                                 hyperparameters=hyperparameters,
-                                num_agents=1
+                                num_agents=1,
+                                random_seed=random_seed
                                 ))
         
         # Create the agents which will play against each other:
         self.agent1 = DDPGAgent(state_size=self.env.get_states_per_agent(),
                                 action_size=self.env.get_action_size(),
                                 hyperparameters=hyperparameters,
-                                num_agents=1)
+                                num_agents=1,
+                                random_seed=random_seed)
         self.agent2 = DDPGAgent(state_size=self.env.get_states_per_agent(),
                                 action_size=self.env.get_action_size(),
                                 hyperparameters=hyperparameters,
-                                num_agents=1)
+                                num_agents=1,
+                                random_seed=random_seed)
         
         # Create various attributes to keep track of scores and other information
         self.episodes = hyperparameters.EPISODES
@@ -69,8 +74,8 @@ class Trainer():
             self.env.reset()
             for agent in self.agents:
                 agent.reset()
-            self.agent1.reset()
-            self.agent2.reset()
+            self.agent1.reset()  # reset the noise
+            self.agent2.reset()  # reset the noise
             episode_scores = np.zeros(self.env.get_num_of_agents())
 
             # Get initial state of the unity environment and reshape it
@@ -158,6 +163,7 @@ class Trainer():
         if self.current_episode % self.save_every == 0:
             print('\r## CHECKPOINT ## Episode: {}   Best score: {:.2f}   Average Score Last 100 Episodes: {:.2f}'.format(
                 self.current_episode, self.best_score, average_score))
+            # Save scores only during checkpoints:
             self.save_scores()
         
         # If episode resulted in the environment being solved:

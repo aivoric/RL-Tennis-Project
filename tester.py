@@ -6,20 +6,27 @@ from environment import Environment
 class Tester():
     """
     Tester handles walking a trained agent through the environment and showing it visually.
-    It initialises its own copies of the environment and agents.
+    It initialises its own copies of the Environment and Agents.
+    
+    Methods
+    ====
+        load_weights(): allows to load save network model weights for the actor and critic.
+        play(): walks the the initialised environment for N amount of episodes. Shows this visually.
     """
-    def __init__(self, environment_file_name, hyperparameters, games_to_play):
-        self.env = Environment(file_name=environment_file_name, train_mode=False, no_graphics=False)
+    def __init__(self, environment_file_name, hyperparameters, random_seed=0, games_to_play=10):
+        self.env = Environment(file_name=environment_file_name, seed=random_seed, train_mode=False, no_graphics=False)
         
         # Create the agents which will play against each other:
         self.agent1 = DDPGAgent(state_size=self.env.get_states_per_agent(),
                                 action_size=self.env.get_action_size(),
                                 hyperparameters=hyperparameters,
-                                num_agents=1)
+                                num_agents=1,
+                                random_seed=random_seed)
         self.agent2 = DDPGAgent(state_size=self.env.get_states_per_agent(),
                                 action_size=self.env.get_action_size(),
                                 hyperparameters=hyperparameters,
-                                num_agents=1)
+                                num_agents=1,
+                                random_seed=random_seed)
         self.games_to_play = games_to_play
     
     def load_weights(self):
@@ -27,11 +34,11 @@ class Tester():
         Load trained model weights into the initialised agents.
         """
         #TODO: Move the weights file selection to main.py
-        self.agent1.actor_local.load_state_dict(torch.load('results/results_2/agent1_actor.pth'))
-        self.agent1.critic_local.load_state_dict(torch.load('results/results_2/agent1_critic.pth'))
+        self.agent1.actor_local.load_state_dict(torch.load('results/results_7/agent1_actor.pth'))
+        self.agent1.critic_local.load_state_dict(torch.load('results/results_7/agent1_critic.pth'))
 
-        self.agent2.actor_local.load_state_dict(torch.load('results/results_2/agent2_actor.pth'))
-        self.agent2.critic_local.load_state_dict(torch.load('results/results_2/agent2_critic.pth'))
+        self.agent2.actor_local.load_state_dict(torch.load('results/results_7/agent2_actor.pth'))
+        self.agent2.critic_local.load_state_dict(torch.load('results/results_7/agent2_critic.pth'))
     
     def play(self):
         """
@@ -39,10 +46,8 @@ class Tester():
         """
         for episode in range(1, self.games_to_play + 1):
 
-            # Reset environment, agents, and scores
+            # Reset environment
             self.env.reset()
-            self.agent1.reset()
-            self.agent2.reset()
             episode_scores = np.zeros(self.env.get_num_of_agents()) 
 
             # Get initial state of the unity environment and reshape it
